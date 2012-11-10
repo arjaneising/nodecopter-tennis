@@ -1,0 +1,1 @@
+(function(){var e,t;e=window.io;t=e.connect("http://localhost");t.on("news",function(e){console.log(e);return t.emit("my other event",{my:"data"})})}).call(this);
