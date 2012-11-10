@@ -1,5 +1,8 @@
 io = window.io
 
+log = (t) ->
+    document.body.innerHTML = t + "<br />" + document.body.innerHTML
+
 socket = io.connect("http://" + document.location.host )
 socket.on "news", (data) ->
   console.log data
@@ -12,9 +15,6 @@ socket.on "connect", ->
   threshold = 5
   zMax = 0
   bottomThreshold = 1
-
-  log = (t) ->
-    document.body.innerHTML = t + "<br />" + document.body.innerHTML
 
   done = ->
     socket.emit "kick", { z: zMax }
@@ -31,7 +31,7 @@ socket.on "connect", ->
 
   log "connected"
 
-  window.addEventListener "devicemotion", ((data) ->
+  tick = (data) ->
     if !playing
       return
 
@@ -44,7 +44,7 @@ socket.on "connect", ->
     if acc.z < zMax && zMax > threshold
       done()
 
-  ), false
+  window.addEventListener "devicemotion", tick , false
 
   socket.on "turn", ->
     playing = true
