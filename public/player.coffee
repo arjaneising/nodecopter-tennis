@@ -1,5 +1,7 @@
 io = window.io
 
+turnClassName = "myTurn"
+
 log = (t) ->
     document.body.innerHTML = t + "<br />" + document.body.innerHTML
 
@@ -23,6 +25,7 @@ socket.on "connect", ->
     reset()
     playing = false
     log "done"
+    document.body.classList.remove turnClassName
 
   reset = ->
     zMax = 0
@@ -50,4 +53,5 @@ socket.on "connect", ->
 
   socket.on "turn", ->
     playing = true
+    document.body.classList.add turnClassName
     log "playing now"
