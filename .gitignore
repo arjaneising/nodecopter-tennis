@@ -18,3 +18,4 @@ app.js
 public/index.html
 
 public/player.js
+*.css
