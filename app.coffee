@@ -21,10 +21,6 @@ app.configure ->
   app.use(express.static(__dirname + '/public'))
 
 
-# TODO implement this :-)
-game.inRange = (evt) ->
-  console.log evt
-
 
 io = require('socket.io').listen(server)
 io.sockets.on 'connection', (socket) ->

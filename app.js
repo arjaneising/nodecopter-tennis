@@ -29,10 +29,6 @@
     return app.use(express["static"](__dirname + '/public'));
   });
 
-  game.inRange = function(evt) {
-    return console.log(evt);
-  };
-
   io = require('socket.io').listen(server);
 
   io.sockets.on('connection', function(socket) {
