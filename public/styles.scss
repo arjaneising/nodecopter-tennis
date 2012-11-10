@@ -1,0 +1,8 @@
+body{
+    font-size: 3em;
+    -moz-transition:     background-color .5s ease-out;
+
+    &.myTurn{
+        background-color: red;
+    }
+}
