@@ -1,8 +1,9 @@
 body{
-    font-size: 3em;
+    font: bold 4em/4em sans-serif;
     -moz-transition:     background-color .5s ease-out;
 
     &.myTurn{
         background-color: red;
+        color: white;
     }
 }
