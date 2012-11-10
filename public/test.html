@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="nl">
+    <head>
+        <title/></title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <button id="btnStart">Start</button>
+        <button id="btnStop">Stop</button>
+        <button id="btnKick">Kick</button>
+        <script src="/socket.io/socket.io.js"></script>
+
+        <script>
+            ( function()
+            {
+                var io          = window.io
+                ,   connected   = false
+                ;
+
+                var socket = io.connect( "http://localhost" );
+
+                socket.on( "connect", function()
+                {
+                    console.log( "connect" );
+                    connected = true;
+                } );
+
+                var btnStart    = document.getElementById( "btnStart" )
+                ,   btnStop     = document.getElementById( "btnStop"  )
+                ,   btnKick     = document.getElementById( "btnKick"  )
+                ;
+
+                btnStart.addEventListener( "click", function(e)
+                {
+                    if ( !connected ) { return; }
+                    socket.emit( "start" );
+                } );
+
+                btnStop.addEventListener( "click", function(e)
+                {
+                    if ( !connected ) { return; }
+                    socket.emit( "stop" );
+                } );
+
+                btnKick.addEventListener( "click", function(e)
+                {
+                    if ( !connected ) { return; }
+                    socket.emit( "kick" );
+                } );
+
+
+            } ());
+        </script>
+    </body>
+</html>

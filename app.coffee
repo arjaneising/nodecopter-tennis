@@ -3,11 +3,12 @@ http = require('http')
 connect = require('connect')
 io = require('socket.io')
 app = express()
+game = require('./lib/game')
 
 
 #
 # * ... skipping some of your app settings ...
-# 
+#
 app.use express.bodyParser()
 
 app.set('port', 1337)
@@ -27,7 +28,6 @@ app.configure ->
 
 
 
-
 ###
 Socket.io
 ###
@@ -41,3 +41,13 @@ io.sockets.on 'connection', (socket) ->
 
   socket.on 'error', (data) ->
     console.log data
+
+  socket.on 'start', (data) ->
+    console.log 'start'
+    game.start()
+
+  socket.on 'stop', ->
+    game.stop()
+
+  socket.on 'kick', ->
+    game.kick 8
