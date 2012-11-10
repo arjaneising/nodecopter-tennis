@@ -36,7 +36,7 @@ io.sockets.on 'connection', (socket) ->
   socket.emit 'news',
     hello: 'world'
 
-  socket.on 'my other event', (data) ->
+  socket.on 'kick', (data) ->
     console.log data
 
   socket.on 'error', (data) ->
