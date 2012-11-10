@@ -39,11 +39,6 @@
     socket.emit('news', {
       hello: 'world'
     });
-    socket.on('my other event', function(data) {
-      return io.sockets.emit('weeej', {
-        mek: 'DUDE'
-      });
-    });
     socket.on('error', function(data) {
       return console.log(data);
     });
@@ -54,8 +49,11 @@
     socket.on('stop', function() {
       return game.stop();
     });
-    socket.on('kick', function() {
-      return game.kick(8);
+    socket.on('kick', function(data) {
+      var velocity;
+      velocity = data.z;
+      game.kick(velocity);
+      return game.switchPlayer();
     });
     return game.inRange(function() {
       var id, players, whosTurn;

@@ -31,10 +31,6 @@ io.sockets.on 'connection', (socket) ->
   socket.emit 'news',
     hello: 'world'
 
-  socket.on 'my other event', (data) ->
-    io.sockets.emit 'weeej',
-      mek: 'DUDE'
-
   socket.on 'error', (data) ->
     console.log data
 
@@ -45,8 +41,10 @@ io.sockets.on 'connection', (socket) ->
   socket.on 'stop', ->
     game.stop()
 
-  socket.on 'kick', ->
-    game.kick 8
+  socket.on 'kick', (data)->
+    velocity = data.z
+    game.kick velocity;
+    game.switchPlayer()
 
   game.inRange ->
     players = io.sockets.clients()
