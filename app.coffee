@@ -1,5 +1,3 @@
-__dirname = window.__dirname
-
 express = require('express')
 http = require('http')
 connect = require('connect')
