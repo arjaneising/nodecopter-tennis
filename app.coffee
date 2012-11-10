@@ -49,5 +49,9 @@ io.sockets.on 'connection', (socket) ->
   socket.on 'stop', ->
     game.stop()
 
-  socket.on 'kick', ->
-    game.kick 8
+  socket.on 'kick', (data)->
+    velocity = data.z
+    game.kick velocity;
+    game.switchPlayer()
+
+  socket.emit "turn"
