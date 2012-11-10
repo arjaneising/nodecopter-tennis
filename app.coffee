@@ -20,7 +20,9 @@ app.configure ->
   app.use('/public', express.static(__dirname + '/public'))
   app.use(express.static(__dirname + '/public'))
 
+started = false
 
+players = []
 
 io = require('socket.io').listen(server)
 io.sockets.on 'connection', (socket) ->
@@ -37,16 +39,28 @@ io.sockets.on 'connection', (socket) ->
   socket.on 'stop', ->
     game.stop()
 
+  socket.on 'player', ->
+    console.log 'new player'
+    players.push socket
+
   socket.on 'kick', (data)->
-    velocity = data.z
-    game.kick velocity;
-    game.switchPlayer()
+    if started
+      velocity = data.z
+      game.kick velocity;
+
+      whosTurn = Math.floor(Math.random() * players.length)
+      id = players[whosTurn].id
+
+      console.log id
+
+      io.sockets.socket(id).emit('turn')
 
   game.inRange ->
-    players = io.sockets.clients()
-    whosTurn = Math.floor(Math.random() * players.length)
-    id = players[whosTurn].id
+    started = true
+  #   players = io.sockets.clients()
+  #   whosTurn = Math.floor(Math.random() * players.length)
+  #   id = players[whosTurn].id
 
-    console.log id
+  #   console.log id
 
-    io.sockets.socket(id).emit('turn')
+  #   io.sockets.socket(id).emit('turn')
