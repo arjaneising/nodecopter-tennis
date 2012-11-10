@@ -29,6 +29,10 @@
     return app.use(express["static"](__dirname + '/public'));
   });
 
+  game.inRange = function(evt) {
+    return console.log(evt);
+  };
+
   io = require('socket.io').listen(server);
 
   io.sockets.on('connection', function(socket) {
@@ -50,8 +54,16 @@
     socket.on('stop', function() {
       return game.stop();
     });
-    return socket.on('kick', function() {
+    socket.on('kick', function() {
       return game.kick(8);
+    });
+    return game.inRange(function() {
+      var id, players, whosTurn;
+      players = io.sockets.clients();
+      whosTurn = Math.floor(Math.random() * players.length);
+      id = players[whosTurn].id;
+      console.log(id);
+      return io.sockets.socket(id).emit('turn');
     });
   });
 

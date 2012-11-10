@@ -21,6 +21,10 @@ app.configure ->
   app.use(express.static(__dirname + '/public'))
 
 
+# TODO implement this :-)
+game.inRange = (evt) ->
+  console.log evt
+
 
 io = require('socket.io').listen(server)
 io.sockets.on 'connection', (socket) ->
@@ -43,3 +47,12 @@ io.sockets.on 'connection', (socket) ->
 
   socket.on 'kick', ->
     game.kick 8
+
+  game.inRange ->
+    players = io.sockets.clients()
+    whosTurn = Math.floor(Math.random() * players.length)
+    id = players[whosTurn].id
+
+    console.log id
+
+    io.sockets.socket(id).emit('turn')
