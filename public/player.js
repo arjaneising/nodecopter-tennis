@@ -1,1 +1,1 @@
-(function(){var e,t;e=window.io;t=e.connect("http://localhost");t.on("news",function(e){console.log(e);return t.emit("my other event",{my:"data"})})}).call(this);
+(function(){var e,t;e=window.io;t=e.connect("http://localhost");t.on("news",function(e){t.emit("my other event",{my:"data"});if(typeof console!="undefined"&&console!==null?console.log:void 0)return console.log(e)});t.on("weeej",function(e){if(typeof console!="undefined"&&console!==null?console.log:void 0)return console.log(e)})}).call(this);

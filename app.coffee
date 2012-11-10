@@ -6,18 +6,13 @@ app = express()
 game = require('./lib/game')
 
 
-#
-# * ... skipping some of your app settings ...
-#
 app.use express.bodyParser()
 
-app.set('port', 1337)
+app.set('port', 1338)
 
 server = http.createServer(app)
 server.listen app.get('port'), ->
   console.log 'Express server listening on port ' + app.get('port')
-
-
 
 
 
@@ -27,17 +22,14 @@ app.configure ->
 
 
 
-
-###
-Socket.io
-###
 io = require('socket.io').listen(server)
 io.sockets.on 'connection', (socket) ->
   socket.emit 'news',
     hello: 'world'
 
   socket.on 'my other event', (data) ->
-    console.log data
+    io.sockets.emit 'weeej',
+      mek: 'DUDE'
 
   socket.on 'error', (data) ->
     console.log data
