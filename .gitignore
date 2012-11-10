@@ -19,3 +19,6 @@ public/index.html
 
 public/player.js
 *.css
+
+public/*.js
+app.js
