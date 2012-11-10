@@ -10,14 +10,16 @@ socket.on "news", (data) ->
     my: "data"
 
 socket.on "connect", ->
-  playing = true
+  playing = false
   checkInterval = undefined
   threshold = 5
   zMax = 0
   bottomThreshold = 1
 
   done = ->
-    socket.emit "kick", { z: zMax }
+    socket.emit "kick",
+      z: zMax
+
     reset()
     playing = false
     log "done"
@@ -48,3 +50,4 @@ socket.on "connect", ->
 
   socket.on "turn", ->
     playing = true
+    log "playing now"
