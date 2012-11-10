@@ -3,7 +3,7 @@ io = window.io
 turnClassName = "myTurn"
 
 log = (t) ->
-    document.body.innerHTML = t + "<br />" + document.body.innerHTML
+    document.body.innerHTML = t #+ "<br />" + document.body.innerHTML
 
 socket = io.connect("http://" + document.location.host )
 socket.on "news", (data) ->
@@ -12,6 +12,7 @@ socket.on "news", (data) ->
     my: "data"
 
 socket.on "connect", ->
+
   playing = false
   checkInterval = undefined
   threshold = 5
@@ -54,4 +55,6 @@ socket.on "connect", ->
   socket.on "turn", ->
     playing = true
     document.body.classList.add turnClassName
-    log "playing now"
+    log "Your turn now!"
+
+  socket.emit "player"
