@@ -13,3 +13,8 @@ results
 
 node_modules
 npm-debug.log
+app.js
+
+public/index.html
+
+public/player.js
