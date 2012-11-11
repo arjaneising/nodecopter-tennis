@@ -15,9 +15,10 @@ socket.on "connect", ->
 
   playing = false
   checkInterval = undefined
-  threshold = 5
+  threshold = 3
   zMax = 0
   bottomThreshold = 1
+  zForceDivider = 2.5
 
   done = ->
     socket.emit "kick",
@@ -42,12 +43,13 @@ socket.on "connect", ->
       return
 
     acc = data.acceleration
+    force = acc.z / zForceDivider
 
     if acc.z > bottomThreshold
-      zMax = Math.max(acc.z, zMax)
+      zMax = Math.max( force, zMax )
       draw()
 
-    if acc.z < zMax && zMax > threshold
+    if force < zMax && zMax > threshold
       done()
 
   window.addEventListener "devicemotion", tick , false

@@ -1,6 +1,7 @@
 body{
     font: bold 4em/4em sans-serif;
     -moz-transition:     background-color .5s ease-out;
+    -webkit-transition:     background-color .5s ease-out;
 
     &.myTurn{
         background-color: red;

@@ -40,7 +40,7 @@ io.sockets.on 'connection', (socket) ->
     game.stop()
 
   socket.on 'player', ->
-    console.log 'new player'
+    console.log '>>>> new player'
     players.push socket
 
   socket.on 'kick', (data)->
@@ -53,9 +53,21 @@ io.sockets.on 'connection', (socket) ->
 
       console.log id
 
-      io.sockets.socket(id).emit('turn')
+      setTimeout ->
+        io.sockets.socket(id).emit('turn')
+      , 1000
 
   game.inRange ->
+
+    if !started
+
+      whosTurn = Math.floor(Math.random() * players.length)
+      id = players[whosTurn].id
+
+      console.log id
+
+      io.sockets.socket(id).emit('turn')
+
     started = true
   #   players = io.sockets.clients()
   #   whosTurn = Math.floor(Math.random() * players.length)
